@@ -67,6 +67,11 @@ public class GamePanel extends JPanel implements KeyListener, Runnable
 			
 			wait = targetTime - elapsed / 1000000;
 			
+			if(wait < 0)
+			{
+				wait = 5;
+			}
+			
 			try
 			{
 				Thread.sleep(wait);	
@@ -91,7 +96,7 @@ public class GamePanel extends JPanel implements KeyListener, Runnable
 	private void drawToScreen()
 	{
 		Graphics g2 = getGraphics();
-		g2.drawImage(image, 0, 0, null);
+		g2.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		g2.dispose();
 	}
 	

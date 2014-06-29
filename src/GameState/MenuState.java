@@ -36,8 +36,6 @@ public class MenuState extends GameState
 		{
 			e.printStackTrace();
 		}
-	
-	
 	}
 	
 	public void init() 
