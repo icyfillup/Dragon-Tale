@@ -78,7 +78,7 @@ public class MenuState extends GameState
 	{
 		if(currentChoice == 0)
 		{
-//			start
+			gsm.setState(GameStateManager.LEVEL1STAT);
 		}
 		
 		if(currentChoice == 1)
