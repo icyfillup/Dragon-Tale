@@ -41,6 +41,9 @@ public class TileMap
 	private int numRowsToDraw;
 	private int numColsToDraw;
 	
+	public int getNumRows() { return numRows; }
+	public int getNumCols() { return numCols; }
+	
 	public TileMap(int tileSize)
 	{
 		this.tileSize = tileSize;
