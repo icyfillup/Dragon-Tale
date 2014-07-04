@@ -44,6 +44,7 @@ public abstract class MapObject
 	protected Animation animation;
 	protected int currentAction;
 	protected int previousAction;
+	protected boolean facingRight;
 	
 //	movement
 	protected boolean left;
@@ -85,15 +86,16 @@ public abstract class MapObject
 	public void calculateCorners(double x, double y)
 	{
 		int leftTile = (int) (x - cwidth / 2) / tileSize;
-		int rightTile = (int) (x + cwidth / 2) / tileSize;
+		int rightTile = (int) (x + cwidth / 2 - 1) / tileSize;
 		int topTile = (int) (y - cheight / 2) / tileSize;
-		int bottomTile = (int ) (y + cheight / 2) / tileSize;
+		int bottomTile = (int ) (y + cheight / 2 - 1) / tileSize;
 		
-		 if(topTile < 0 || bottomTile >= tileMap.getNumRows() ||
-	                leftTile < 0 || rightTile >= tileMap.getNumCols()) {
-	                topLeft = topRight = bottomLeft = bottomRight = false;
-	                return;
-	        }
+		if(topTile < 0 || bottomTile >= tileMap.getNumRows() ||
+	                leftTile < 0 || rightTile >= tileMap.getNumCols())
+		{
+			topLeft = topRight = bottomLeft = bottomRight = false;
+			return;
+	    }
 		
 		int tl = tileMap.getType(topTile, leftTile);
 		int tr = tileMap.getType(topTile, rightTile);
@@ -104,6 +106,12 @@ public abstract class MapObject
 		topRight = tr == Tile.BLOCKED;
 		bottomLeft = bl == Tile.BLOCKED;
 		bottomRight = br == Tile.BLOCKED;
+		
+//		System.out.println("topLeft: " + topLeft);
+//		System.out.println("topRight: " + topRight);
+//		System.out.println("bottomLeft: " + bottomLeft);
+//		System.out.println("bottomRight: " + bottomRight);
+//		System.out.println();
 	}
 	
 	public void checkTileMapCollision()
@@ -135,6 +143,8 @@ public abstract class MapObject
 		{
 			if(bottomLeft || bottomRight)
 			{
+//				System.out.println("touched ground");
+//				System.out.println();
 				dy = 0;
 				falling = false;
 				ytemp = (currRow + 1) * tileSize - cheight / 2;
@@ -144,6 +154,9 @@ public abstract class MapObject
 				ytemp += dy;
 			}
 		}
+//		System.out.println("ytemp: " + ytemp);
+//		System.out.println("dy: " + dy);
+//		System.out.println();
 		
 		calculateCorners(xdest, y);
 		
@@ -166,7 +179,14 @@ public abstract class MapObject
 				dx = 0;
 				xtemp = (currCol + 1) * tileSize - cwidth / 2;
 			}
+			else
+			{
+				xtemp += dx;
+			}
 		}
+//		System.out.println("xtemp: " + xtemp);
+//		System.out.println("dx: " + dx);
+//		System.out.println();
 		
 		if(!falling)
 		{
@@ -211,12 +231,15 @@ public abstract class MapObject
 	
 	public boolean notOnScreen()
 	{
-		return  x + xmap + width < 0 || 
+		return	x + xmap + width < 0 || 
 				x + xmap - width > GamePanel.WIDTH || 
 				y + ymap + height < 0 ||
 				y + ymap - height > GamePanel.HEIGHT;
-	}
-
-	
-	
+	}	
 }
+
+
+
+
+
+
