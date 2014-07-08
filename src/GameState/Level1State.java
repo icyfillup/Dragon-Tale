@@ -66,6 +66,8 @@ public class Level1State extends GameState
 		if(k == KeyEvent.VK_E) { player.setGliding(true); }
 		if(k == KeyEvent.VK_R) { player.setScratch(); }
 		if(k == KeyEvent.VK_F) { player.setFiring(); }
+		
+		if(k == KeyEvent.VK_C) { showLevel1StateConfig(); }
 	}
 
 	public void keyReleased(int k)
@@ -78,4 +80,19 @@ public class Level1State extends GameState
 		if(k == KeyEvent.VK_E) { player.setGliding(false); }
 	}
 
+	public void showLevel1StateConfig()
+	{
+		tileMap.showTileMapConfig();
+		
+		System.out.println("----------------------showLevel1StateConfig()----------------------");
+		System.out.println();
+		
+		System.out.println("tileMap.setPosition(GamePanel.WIDTH / 2 - player.getx(), GamePanel.HEIGHT / 2 - player.gety()): ");
+		System.out.println("GamePanel.WIDTH / 2 - player.getx(): " + (GamePanel.WIDTH / 2 - player.getx()));
+		System.out.println("GamePanel.HEIGHT / 2 - player.gety(): " + (GamePanel.HEIGHT / 2 - player.gety()));
+		System.out.println();
+		
+		player.setMapObjectConfig(true);
+	}
+	
 }

@@ -1,9 +1,12 @@
 package Entity;
 
+import Main.GamePanel;
 import TileMap.*;
 
 import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -89,13 +92,10 @@ public class Player extends MapObject
 					if(i != 6)
 						bi[j] = spritesheet.getSubimage(j * width, i * height, width, height);
 					else 
-						bi[j] = spritesheet.getSubimage(j * width * 2, i * height, width, height);
-					
+						bi[j] = spritesheet.getSubimage(j * width * 2, i * height, width, height);	
 				}
 				sprites.add(bi);
 			}
-			
-			
 		}
 		catch (Exception e)
 		{
@@ -114,7 +114,7 @@ public class Player extends MapObject
 	public int getMaxFire() { return maxFire; }
 	
 	public void setFiring() { firing = true; }
-	public void setScratch() { scratching = true; };
+	public void setScratch() { scratching = true; }
 	public void setGliding(boolean b) { gliding = b; }
 	
 	private void getNextPosition()
@@ -133,7 +133,7 @@ public class Player extends MapObject
 		else
 		{
 			if(dx > 0)
-			{
+			{ 
 				dx -= stopSpeed;
 				if(dx < 0) { dx = 0; }
 			}
@@ -258,7 +258,64 @@ public class Player extends MapObject
 			if(right) facingRight = true;
 			if(left) facingRight = false;
 		}
+		
+		if(config) { config = false; showPlayerConfig(); }
 	}
+	
+//####################################################################################	
+	
+	private void showPlayerConfig()
+	{
+		showMapObjectConfig();
+		System.out.println("----------------------showPlayerConfig()----------------------");
+		System.out.println();
+		System.out.println("health :" + health);
+		System.out.println("maxHealth :" + maxHealth);
+		System.out.println("fire :" + fire);
+		System.out.println("maxFire :" + maxFire);
+		System.out.println("dead :" + dead);
+		System.out.println("flinching :" + flinching);
+		System.out.println("flinchTimer :" + flinchTimer);
+		System.out.println();
+		
+		System.out.println("firing: " + firing);
+		System.out.println("fireCost: " + fireCost);
+		System.out.println("fireBallDamage: " + fireBallDamage);
+		System.out.println();
+		
+		System.out.println("scratching: " + scratching);
+		System.out.println("scratchDamage: " + scratchDamage);
+		System.out.println("scratchRange: " + scratchRange);
+		System.out.println("gliding: " + gliding);
+		System.out.println();
+		
+		System.out.println("Coornates of sprite:");
+		if(facingRight)
+		{
+			System.out.println("x: " + (x + xmap - width / 2));
+			System.out.println("x + xmap - width / 2: " + x + " + " +  xmap + " - " + (width / 2) );
+			
+			System.out.println("y: " + (y + ymap - height / 2));
+			System.out.println("y + ymap - height / 2: " + y + " + " +  ymap + " - " + (height / 2));
+			System.out.println();
+		}
+		else
+		{
+			
+			System.out.println("x: " + (x + xmap - width / 2 + width));
+			System.out.println("x + xmap - width / 2 + width: " + x + " + " +  xmap + " - " + (width / 2) + " + " + width);
+			
+			System.out.println("y: " + (y + ymap - height / 2));
+			System.out.println("y + ymap - height / 2: " + y + " + " +  ymap + " - " + (height / 2) );
+			System.out.println();
+		}
+		System.out.println("Player's Coornates on screen:");
+		System.out.println("x: " + (x + xmap));
+		System.out.println("y: " + (y + ymap));
+		System.out.println();
+	}
+
+//####################################################################################	
 	
 	public void draw(Graphics2D g)
 	{
@@ -272,6 +329,7 @@ public class Player extends MapObject
 			if(elapsed / 100 % 2 == 0) { return; }
 		}
 		
+		g.setColor(Color.GREEN);
 		if(facingRight) 
 		{
 			g.drawImage
@@ -280,6 +338,7 @@ public class Player extends MapObject
 						(int) (y + ymap - height / 2), 
 						null
 					);
+			g.fillOval((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), 3, 3);
 			
 		}
 		else
@@ -292,8 +351,20 @@ public class Player extends MapObject
 						height,
 						null
 					);
+			g.fillOval((int)(x + xmap - width / 2 + width), (int)(y + ymap - height / 2), 3, 3);
 		}
-//		
+		
+		g.setColor(Color.red);
+		
+//		corners of the collision detection
+		g.fillOval((int)x - 10 + (int)xmap, (int)y - 10 + (int)ymap, 3, 3);
+		g.fillOval((int)x - 10 + (int)xmap, (int)y + 9 + (int)ymap, 3, 3);
+		g.fillOval((int)x + 9 + (int)xmap, (int)y - 10 + (int)ymap, 3, 3);
+		g.fillOval((int)x + 9 + (int)xmap, (int)y + 9 + (int)ymap, 3, 3);
+		
+//		center of the player's coor
+		g.fillOval((int)x + (int)xmap, (int)y + (int)ymap, 3, 3);
+		
 	}
 	
 	

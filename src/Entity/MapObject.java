@@ -31,10 +31,12 @@ public abstract class MapObject
 //	collision
 	protected int currRow;
 	protected int currCol;
+	
 	protected double xdest;
 	protected double ydest;
 	protected double xtemp;
 	protected double ytemp;
+	
 	protected boolean topLeft;
 	protected boolean topRight;
 	protected boolean bottomLeft;
@@ -88,7 +90,7 @@ public abstract class MapObject
 		int leftTile = (int) (x - cwidth / 2) / tileSize;
 		int rightTile = (int) (x + cwidth / 2 - 1) / tileSize;
 		int topTile = (int) (y - cheight / 2) / tileSize;
-		int bottomTile = (int ) (y + cheight / 2 - 1) / tileSize;
+		int bottomTile = (int) (y + cheight / 2 - 1) / tileSize;
 		
 		if(topTile < 0 || bottomTile >= tileMap.getNumRows() ||
 	                leftTile < 0 || rightTile >= tileMap.getNumCols())
@@ -107,15 +109,12 @@ public abstract class MapObject
 		bottomLeft = bl == Tile.BLOCKED;
 		bottomRight = br == Tile.BLOCKED;
 		
-//		System.out.println("topLeft: " + topLeft);
-//		System.out.println("topRight: " + topRight);
-//		System.out.println("bottomLeft: " + bottomLeft);
-//		System.out.println("bottomRight: " + bottomRight);
-//		System.out.println();
 	}
 	
 	public void checkTileMapCollision()
 	{
+//		Collision cases happens with the dx/dx first then the corners cases.
+//		concentrate on the dx/dx  first.
 		currCol = (int)x / tileSize;
 		currRow = (int)y / tileSize;
 		
@@ -148,6 +147,7 @@ public abstract class MapObject
 				dy = 0;
 				falling = false;
 				ytemp = (currRow + 1) * tileSize - cheight / 2;
+				
 			}
 			else
 			{
@@ -228,6 +228,93 @@ public abstract class MapObject
 	public void setUp(boolean b) { up = b; }
 	public void setDown(boolean b) { down = b; }
 	public void setJumping(boolean b) { jumping = b; }
+	
+//#######################################################################	
+	
+	boolean config;
+	public void setMapObjectConfig(boolean b) { config = b; }
+	public void showMapObjectConfig() 
+	{
+		System.out.println("----------------------showMapObjectConfig()----------------------");
+		System.out.println();
+		
+		System.out.println("topLeft: " + topLeft);
+		System.out.println("topRight: " + topRight);
+		System.out.println("bottomLeft: " + bottomLeft);
+		System.out.println("bottomRight: " + bottomRight);
+		System.out.println();
+		
+		System.out.println("xmap: " + xmap);
+		System.out.println("ymap: " + ymap);
+		System.out.println();
+		
+		System.out.println("Position of x in level: " + x);
+		System.out.println("Position of y in level: " + y);
+		System.out.println("dx: " + dx);
+		System.out.println("dy: " + dy);
+		System.out.println();
+		
+		System.out.println("width: " + width);
+		System.out.println("height: " + height);
+		System.out.println("cwidth: " + cwidth);
+		System.out.println("cheight: " + cheight);
+		System.out.println();
+		
+		System.out.println("currRow: " + currRow);
+		System.out.println("currCol: " + currCol);
+		System.out.println();
+		
+		System.out.println("xdest: " + xdest);
+		System.out.println("ydest: " + ydest);
+		System.out.println("xtemp: " + xtemp);
+		System.out.println("ytemp: " + ytemp);
+		System.out.println();
+		
+		System.out.println("currentAction: " + currentAction);
+		System.out.println("previousAction: " + previousAction);
+		System.out.println("facingRight: " + facingRight);
+		System.out.println();
+		
+		System.out.println("moveSpeed: " + moveSpeed);
+		System.out.println("maxSpeed: " + maxSpeed);
+		System.out.println("stopSpeed: " + stopSpeed);
+		System.out.println("fallSpeed: " + fallSpeed);
+		System.out.println("maxFallSpeed: " + maxFallSpeed);
+		System.out.println("jumpStart: " + jumpStart);
+		System.out.println("stopJumpSpeed: " + stopJumpSpeed);
+		System.out.println();
+
+		int leftTile = (int) ((x - cwidth / 2) / tileSize);
+		System.out.println("leftTile: " + leftTile);
+		System.out.println("(x - cwidth / 2) / tileSize): (" + x + " - " + (cwidth / 2) + ") / " + tileSize);
+		
+		int rightTile = (int) ((x + cwidth / 2 - 1) / tileSize);
+		System.out.println("rightTile: " + rightTile);
+		System.out.println("(x + cwidth / 2 - 1)  / tileSize): (" + x + " + " + (cwidth / 2 - 1) + ") / " + tileSize);
+		
+		int topTile = (int) ((y - cheight / 2) / tileSize);
+		System.out.println("topTile: " + topTile);
+		System.out.println("(y - cheight / 2) / tileSize): (" + y + " - " + (cheight / 2) + ") / " + tileSize);
+		
+		int bottomTile = (int) ((y + cheight / 2 - 1) / tileSize);
+		System.out.println("bottomTile: " + bottomTile);
+		System.out.println("(y + cheight / 2 - 1) / tileSize): (" + y + " + " + (cheight / 2 - 1) + ") / " + tileSize);
+		System.out.println();
+		
+		System.out.println("Left Collision: " + (currCol * tileSize + cwidth / 2));
+		System.out.println("(topLeft || bottomLeft) xtemp = currCol * tileSize + cwidth / 2: " + currCol + " * " + tileSize + " + " + (cwidth / 2));
+		System.out.println("Right Collision: " + ((currCol + 1) * tileSize - cwidth / 2));
+		System.out.println("(topRight || bottomRight) xtemp = (currCol + 1) * tileSize - cwidth / 2: " + (currCol + 1) + " * " + tileSize + " - " + (cwidth / 2));
+		System.out.println("Top Collision: " + (currRow * tileSize + cheight / 2));
+		System.out.println("(topLeft || topRight) ytemp = currRow * tileSize + cheight / 2: " + currRow + " * " + tileSize + " + " + ( cheight / 2));
+		System.out.println("Bottom Collision: " + ((currRow + 1) * tileSize - cheight / 2));
+		System.out.println("(bottomLeft || bottomRight) ytemp = (currRow + 1) * tileSize - cheight / 2: " + (currRow + 1) + " * " + tileSize + " - " + (cheight / 2));
+		System.out.println();
+		
+		
+	}
+	
+//#######################################################################	
 	
 	public boolean notOnScreen()
 	{

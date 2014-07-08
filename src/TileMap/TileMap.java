@@ -50,18 +50,6 @@ public class TileMap
 		numRowsToDraw = GamePanel.HEIGHT / tileSize + 2;
 		numColsToDraw = GamePanel.WIDTH / tileSize + 2;
 		tween = 0.07;
-		
-//		System.out.println("GamePanel.HEIGHT: " + GamePanel.HEIGHT);
-//		System.out.println("GamePanel.WIDTH: " + GamePanel.WIDTH);
-//		System.out.println();
-//		
-//		System.out.println("numRowsToDraw: " + numRowsToDraw);
-//		System.out.println("numColsToDraw: " + numColsToDraw);
-//		System.out.println();
-//		
-//		System.out.println("this.x: " + this.x);
-//		System.out.println("this.y: " + this.y);
-//		System.out.println();
 	}
 	
 	public void loadTiles (String s)
@@ -70,11 +58,6 @@ public class TileMap
 		{
 			tileset = ImageIO.read(getClass().getResourceAsStream(s));
 			numTileAcross = tileset.getWidth() / tileSize;
-			
-//			System.out.println("tileset.getWidth(): " + tileset.getWidth());
-//			System.out.println("tileSize:" + tileSize);
-//			System.out.println("numTileAcross: " + numTileAcross);
-//			System.out.println();
 			
 			tiles = new Tile[2][numTileAcross];
 			BufferedImage subimage;
@@ -103,10 +86,6 @@ public class TileMap
 			numCols = Integer.parseInt(br.readLine());
 			numRows = Integer.parseInt(br.readLine());
 
-//			System.out.println("numCols: " + numCols);
-//			System.out.println("numRows: " + numRows);
-//			System.out.println();
-			
 			map = new int[numRows][numCols];
 			width = numCols * tileSize;
 			height = numRows * tileSize;
@@ -115,11 +94,7 @@ public class TileMap
 			xmax = 0;
 			ymin = GamePanel.HEIGHT - height;
 			ymax = 0;
-			
-//			System.out.println("width: " + width);
-//			System.out.println("height: " + height);
-//			System.out.println();
-			
+
 			String delims = "\\s+";
 			
 			for(int row = 0; row < numRows; row++)
@@ -159,7 +134,9 @@ public class TileMap
 		
 //		System.out.println("Before setPosition():");
 //		System.out.println("this.x: " + this.x);
+//		System.out.println("(x - this.x) * tween: (" + x +  " - " + this.x + ") * " + tween + " = " + ((x - this.x) * tween));
 //		System.out.println("this.y: " + this.y);
+//		System.out.println("(y - this.y) * tween: (" + y +  " - " + this.y + ") * " + tween + " = " + ((y - this.y) * tween));
 //		System.out.println();
 		
 		this.x += (x - this.x) * tween;
@@ -178,6 +155,7 @@ public class TileMap
 //		System.out.println("colOffset: " + colOffset);
 //		System.out.println("rowOffset: " + rowOffset);
 //		System.out.println();
+		
 	}
 	
 	private void fixBounds()
@@ -216,19 +194,58 @@ public class TileMap
 			}
 		}
 		
-//		for(int i = 0; i < 12; i++)
-//		{
-//			g.drawLine(i * 30, 0, i * 30, GamePanel.HEIGHT);
-//		}
-//		
-//		for(int i = 0; i < 10; i++)
-//		{
-//			g.drawLine(0, i * 30, GamePanel.WIDTH, i * 30);
-//		}
+		for(int i = 0; i < 12; i++)
+		{
+			g.drawLine(i * 30, 0, i * 30, GamePanel.HEIGHT);
+		}
+		
+		for(int i = 0; i < 10; i++)
+		{
+			g.drawLine(0, i * 30, GamePanel.WIDTH, i * 30);
+		}
 //		System.out.println("--------------------------------------------");
 //		System.out.println();
 	}
 	
-	
+	public void showTileMapConfig()
+	{
+		System.out.println("----------------------showTileMapConfig()----------------------");
+		System.out.println();
+
+		System.out.println("GamePanel.HEIGHT: " + GamePanel.HEIGHT);
+		System.out.println("GamePanel.WIDTH: " + GamePanel.WIDTH);
+		System.out.println();
+		
+		System.out.println("numRowsToDraw: " + numRowsToDraw);
+		System.out.println("numColsToDraw: " + numColsToDraw);
+		System.out.println();
+		
+		System.out.println("this.x: " + this.x);
+		System.out.println("this.y: " + this.y);
+		System.out.println();
+
+		System.out.println("tileset.getWidth(): " + tileset.getWidth());
+		System.out.println("tileSize:" + tileSize);
+		System.out.println("numTileAcross: " + numTileAcross);
+		System.out.println();
+
+		System.out.println("numCols: " + numCols);
+		System.out.println("numRows: " + numRows);
+		System.out.println();
+		
+		System.out.println("width: " + width);
+		System.out.println("height: " + height);
+		System.out.println();
+		
+		System.out.println("xmin: " + xmin);
+		System.out.println("xmax: " + xmax);
+		System.out.println("ymin: " + ymin);
+		System.out.println("ymax: " + ymax);
+		System.out.println();
+		
+		System.out.println("rowOffset: " + rowOffset);
+		System.out.println("colOffset: " + colOffset);
+		System.out.println();
+	}
 	
 }
