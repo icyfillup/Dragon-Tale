@@ -19,6 +19,8 @@ public class FireBall extends MapObject
 	{
 		super(tm);
 		
+		facingRight = right;
+		
 		moveSpeed = 3.8;
 		if(right) { dx = moveSpeed; }
 		else { dx = - moveSpeed; }
@@ -84,40 +86,7 @@ public class FireBall extends MapObject
 	{
 		setMapPosition();
 		
-		if(facingRight) 
-		{
-			g.drawImage
-					(	animation.getImage(), 
-						(int) (x + xmap - width / 2), 
-						(int) (y + ymap - height / 2), 
-						null
-					);
-			g.fillOval((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), 3, 3);
-			
-		}
-		else
-		{
-			g.drawImage
-					(	animation.getImage(),
-						(int) (x + xmap - width / 2 + width),
-						(int) (y + ymap - height / 2),
-						-width,
-						height,
-						null
-					);
-			g.fillOval((int)(x + xmap - width / 2 + width), (int)(y + ymap - height / 2), 3, 3);
-		}
-		
-		g.setColor(Color.red);
-		
-//		corners of the collision detection
-		g.fillOval((int)x - (cwidth / 2) + (int)xmap, (int)y - (cheight / 2) + (int)ymap, 3, 3);
-		g.fillOval((int)x - (cwidth / 2) + (int)xmap, (int)y + (cheight / 2) - 1 + (int)ymap, 3, 3);
-		g.fillOval((int)x + (cwidth / 2) - 1 + (int)xmap, (int)y - (cheight / 2) + (int)ymap, 3, 3);
-		g.fillOval((int)x + (cwidth / 2) - 1 + (int)xmap, (int)y + (cheight / 2) - 1 + (int)ymap, 3, 3);
-		
-//		center of the player's coor
-		g.fillOval((int)x + (int)xmap, (int)y + (int)ymap, 3, 3);
+		super.draw(g);
 	}
 	
 	

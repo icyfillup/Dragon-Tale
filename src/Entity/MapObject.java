@@ -1,5 +1,6 @@
 package Entity;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 
 import Main.GamePanel;
@@ -323,6 +324,45 @@ public abstract class MapObject
 				y + ymap + height < 0 ||
 				y + ymap - height > GamePanel.HEIGHT;
 	}	
+
+	public void draw(java.awt.Graphics2D g)
+	{
+		g.setColor(Color.GREEN);
+		if(facingRight) 
+		{
+			g.drawImage
+					(	animation.getImage(), 
+						(int) (x + xmap - width / 2), 
+						(int) (y + ymap - height / 2), 
+						null
+					);
+			g.fillOval((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), 3, 3);
+			
+		}
+		else
+		{
+			g.drawImage
+					(	animation.getImage(),
+						(int) (x + xmap - width / 2 + width),
+						(int) (y + ymap - height / 2),
+						-width,
+						height,
+						null
+					);
+			g.fillOval((int)(x + xmap - width / 2 + width), (int)(y + ymap - height / 2), 3, 3);
+		}
+		
+		g.setColor(Color.red);
+		
+//		corners of the collision detection
+		g.fillOval((int)x - 10 + (int)xmap, (int)y - 10 + (int)ymap, 3, 3);
+		g.fillOval((int)x - 10 + (int)xmap, (int)y + 9 + (int)ymap, 3, 3);
+		g.fillOval((int)x + 9 + (int)xmap, (int)y - 10 + (int)ymap, 3, 3);
+		g.fillOval((int)x + 9 + (int)xmap, (int)y + 9 + (int)ymap, 3, 3);
+		
+//		center of the MapObject's coor
+		g.fillOval((int)x + (int)xmap, (int)y + (int)ymap, 3, 3);
+	}
 }
 
 

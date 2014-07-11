@@ -370,41 +370,7 @@ public class Player extends MapObject
 			if(elapsed / 100 % 2 == 0) { return; }
 		}
 		
-		g.setColor(Color.GREEN);
-		if(facingRight) 
-		{
-			g.drawImage
-					(	animation.getImage(), 
-						(int) (x + xmap - width / 2), 
-						(int) (y + ymap - height / 2), 
-						null
-					);
-			g.fillOval((int)(x + xmap - width / 2), (int)(y + ymap - height / 2), 3, 3);
-			
-		}
-		else
-		{
-			g.drawImage
-					(	animation.getImage(),
-						(int) (x + xmap - width / 2 + width),
-						(int) (y + ymap - height / 2),
-						-width,
-						height,
-						null
-					);
-			g.fillOval((int)(x + xmap - width / 2 + width), (int)(y + ymap - height / 2), 3, 3);
-		}
-		
-		g.setColor(Color.red);
-		
-//		corners of the collision detection
-		g.fillOval((int)x - 10 + (int)xmap, (int)y - 10 + (int)ymap, 3, 3);
-		g.fillOval((int)x - 10 + (int)xmap, (int)y + 9 + (int)ymap, 3, 3);
-		g.fillOval((int)x + 9 + (int)xmap, (int)y - 10 + (int)ymap, 3, 3);
-		g.fillOval((int)x + 9 + (int)xmap, (int)y + 9 + (int)ymap, 3, 3);
-		
-//		center of the player's coor
-		g.fillOval((int)x + (int)xmap, (int)y + (int)ymap, 3, 3);
+		super.draw(g);
 		
 	}
 	
